@@ -1,5 +1,9 @@
 package code;
 
+import customcomponents.CustomFileChooser;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +12,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class MainWindow extends javax.swing.JFrame {
@@ -188,22 +195,19 @@ public class MainWindow extends javax.swing.JFrame {
 
                 // define o titulo da caixa de dialogo
                 j.setDialogTitle("Selecione o local para salvar");
-
-                // define a busca apenas de diretorios
-                j.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 
                 // define o diretorio inicial do dialog
-                j.setCurrentDirectory(new File("C:\\Users\\jupir\\OneDrive\\Documentos\\_Projetos\\Netbeans\\escritordetexto\\src\\assets\\texto.txt"));
+                j.setCurrentDirectory(new File(System.getProperty("user.home") + "\\Documents\\"));
 
-                int r = j.showOpenDialog(null);
+                int r = j.showSaveDialog(null);
 
                 StringBuilder path = new StringBuilder();
                 if (r == JFileChooser.APPROVE_OPTION) {
-                    path.append(j.getSelectedFile().getAbsolutePath());
+                    System.out.println(j.getSelectedFile().getAbsolutePath());
+                    path.append(j.getSelectedFile().getAbsolutePath() + ".txt");
                     this.setDirectory(path);
                     
-                    System.out.println(this.getDirectory().toString() + "arquivo.txt");
-                    FileOutputStream fos = new FileOutputStream(this.getDirectory().toString() + "\\arquivo.txt");
+                    FileOutputStream fos = new FileOutputStream(j.getSelectedFile().getPath() + ".txt");
                     fos.write(bytes);
                     fos.flush();
                     fos.close();
@@ -215,7 +219,7 @@ public class MainWindow extends javax.swing.JFrame {
             e.getMessage();
         }
     }//GEN-LAST:event_saveButtonActionPerformed
-
+    
     public StringBuilder getDirectory() {
         return directory;
     }
@@ -234,7 +238,7 @@ public class MainWindow extends javax.swing.JFrame {
         j.addChoosableFileFilter(extensionFile);
         
         // define o diretorio inicial do dialog
-        j.setCurrentDirectory(new File("C:\\Users\\jupir\\OneDrive\\Documentos\\_Projetos\\Netbeans\\escritordetexto\\src\\assets\\texto.txt"));
+        j.setCurrentDirectory(new File("C:\\Users\\jupir\\OneDrive\\Documentos\\_Projetos\\Netbeans\\TextEditor\\src\\assets\\texto.txt"));
 
         int r = j.showOpenDialog(null);
 
